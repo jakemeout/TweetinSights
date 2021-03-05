@@ -5,14 +5,13 @@ from .models import db
 import os
 
 app = Flask(__name__, instance_relative_config=True)
+app.config.
 api = Api(app)
 
 
 class HelloWorld(Resource):
     def get(self):
-        print(os.getenv("API_KEY"))
         return {"hello": "world"}
-
 
 api.add_resource(HelloWorld, "/api/")
 
