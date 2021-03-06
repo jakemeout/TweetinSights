@@ -6,15 +6,15 @@ class Tweet(db.Model):
 
     __tablename__ = "tweets"
 
-    id = db.Column(db.Integer, primary_key=True)
-    tweet_id = db.Column(db.Integer, nullable=False)
-    text = db.Column(db.Text(280))
+    id = db.Column(db.BigInteger, primary_key=True)
+    twitter_id = db.Column(db.BigInteger, nullable=False)
+    text = db.Column(db.String(length=280))
 
     def __init__(self, data):
-        self.tweet_id = data.get("tweet_id")
+        self.twitter_id = data.get("tweet_id")
         self.text = data.get("text")
-        self.created_at = datetime.datetime.utcnow()
-        self.modified_at = datetime.datetime.utcnow()
+        self.created_at = datetime.datetime.now()
+        self.modified_at = datetime.datetime.now()
 
     def save(self):
         db.session.add(self)
@@ -23,7 +23,7 @@ class Tweet(db.Model):
     def update(self, data):
         for key, item in data.items():
             setattr(self, key, item)
-        self.modified_at = datetime.datetime.utcnow()
+        self.modified_at = datetime.datetime.now()
         db.session.commit()
 
     def delete(self):
