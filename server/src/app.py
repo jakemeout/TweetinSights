@@ -35,7 +35,7 @@ def create_app(env_name):
             response = requests.get(
                 f"https://api.twitter.com/2/tweets/search/recent?query=from:{username}",
                 headers=headers,
-            )
+            )      
             print(response.json())
             # return jsonify(response.json)
 
