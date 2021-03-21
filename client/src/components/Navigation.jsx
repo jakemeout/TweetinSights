@@ -4,9 +4,7 @@ import styled from "styled-components";
 const Navigation = () => {
   return (
     <NavStyle>
-      <div>
-        <h1>TweetinSights</h1>
-      </div>
+      <h1>TweetinSights</h1>
     </NavStyle>
   );
 };
