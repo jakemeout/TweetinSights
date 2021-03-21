@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
-from src.main import create_app, db
+from .app import create_app, db
 
 
 load_dotenv()
