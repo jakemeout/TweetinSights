@@ -7,6 +7,9 @@ from flask_restful import Resource, Api
 from .config import main_config
 from flask_sqlalchemy import SQLAlchemy
 import requests
+import openai
+
+openai.api_key = environ["OPENAI_API_KEY"]
 
 
 def create_app(env_name):
@@ -30,13 +33,25 @@ def create_app(env_name):
     class Tweets(Resource):
         def post(self):
             print(request.json)
-            username = request.json['username']
+            username = request.json["username"]
             print(username)
             response = requests.get(
                 f"https://api.twitter.com/2/tweets/search/recent?query=from:{username}",
                 headers=headers,
-            )      
-            print(response.json())
+            ).json()
+            print(response["data"][0]["text"])
+            ai_response = openai.Completion.create(
+                engine="davinci",
+                prompt=response["data"][0]["text"],
+                temperature=0.3,
+                max_tokens=60,
+                top_p=1.0,
+                frequency_penalty=0.5,
+                presence_penalty=0.0,
+                stop=["###"],
+            )
+
+            print(ai_response)
             # return jsonify(response.json)
 
     api.add_resource(Root, "/api/")
