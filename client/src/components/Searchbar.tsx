@@ -1,11 +1,11 @@
 import React, { useMemo, useState, useEffect } from "react";
 import styled from "styled-components";
 
-const SearchBar = () => {
+const SearchBar = (): JSX.Element => {
   const [value, setValue] = useState("");
 
-  const onType = (text) => setValue(text);
-  const handleSubmit = () => 
+  const onType = (text: React.SetStateAction<string>) => setValue(text);
+  // const handleSubmit = () => 
 
   return (
     <SearchbarStyle>
@@ -16,7 +16,7 @@ const SearchBar = () => {
           name="filter"
           value={value}
           onChange={(e) => onType(e.target.value)}
-          onSubmit={handleSubmit}
+          // onSubmit={handleSubmit}
         />
       </div>
     </SearchbarStyle>

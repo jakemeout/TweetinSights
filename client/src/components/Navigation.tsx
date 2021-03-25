@@ -1,10 +1,12 @@
-import React from "react";
+import React from 'react';
 import styled from "styled-components";
 
-const Navigation = () => {
+
+
+const Navigation = (): JSX.Element => {
   return (
     <NavStyle>
-      <h1>TweetinSights</h1>
+      <h1>title</h1>
     </NavStyle>
   );
 };

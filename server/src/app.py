@@ -39,11 +39,14 @@ def create_app(env_name):
                 f"https://api.twitter.com/2/tweets/search/recent?query=from:{username}",
                 headers=headers,
             ).json()
-            print(response["data"][0]["text"])
+            print(response)
+            tweet = response["data"][0]["text"]
+            print(tweet)
+            warmup_prompt = "This is a tweet sentiment classifier\n\n\nTweet: \"I loved the new Batman movie!\"\nSentiment: Positive\n###\nTweet: \"I hate it when my phone battery dies.\"\nSentiment: Negative\n###\nTweet: \"My day has been 👍\"\nSentiment: Positive\n###\nTweet: \"This is the link to the article\"\nSentiment: Neutral\n###\n"
             ai_response = openai.Completion.create(
                 engine="davinci",
-                prompt=response["data"][0]["text"],
-                temperature=0.3,
+                prompt=f"{warmup_prompt} Tweet:{tweet} Sentiment: ###",
+                temperature=0,
                 max_tokens=60,
                 top_p=1.0,
                 frequency_penalty=0.5,

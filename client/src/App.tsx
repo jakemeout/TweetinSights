@@ -1,8 +1,9 @@
 import './App.css';
-import Navigation from './components/Navigation'
-import Searchbar from './components/Searchbar'
+import Navigation from './components/Navigation';
+import Searchbar from './components/Searchbar';
 
-function App() {
+
+const App = (): JSX.Element => {
   return (
     <div className="App">
       <Navigation />
