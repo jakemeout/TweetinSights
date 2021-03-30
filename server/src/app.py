@@ -16,7 +16,7 @@ def create_app(env_name):
     app = Flask(__name__)
     app.config.from_object(main_config["development"])
     api = Api(app)
-    cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db = SQLAlchemy(app)
     db.init_app(app)
@@ -45,17 +45,19 @@ def create_app(env_name):
             warmup_prompt = "This is a tweet sentiment classifier\n\n\nTweet: \"I loved the new Batman movie!\"\nSentiment: Positive\n###\nTweet: \"I hate it when my phone battery dies.\"\nSentiment: Negative\n###\nTweet: \"My day has been 👍\"\nSentiment: Positive\n###\nTweet: \"This is the link to the article\"\nSentiment: Neutral\n###\n"
             ai_response = openai.Completion.create(
                 engine="davinci",
-                prompt=f"{warmup_prompt} Tweet:{tweet} Sentiment: ###",
-                temperature=0,
+                prompt=f"{warmup_prompt} Tweet:{tweet} Sentiment:",
+                temperature=0.0,
                 max_tokens=60,
                 top_p=1.0,
-                frequency_penalty=0.5,
+                frequency_penalty=1.0,
                 presence_penalty=0.0,
                 stop=["###"],
             )
 
             print(ai_response)
-            # return jsonify(response.json)
+
+            
+            return jsonify({"tweet": tweet, "ai_response": ai_response})
 
     api.add_resource(Root, "/api/")
     api.add_resource(Tweets, "/api/tweets")

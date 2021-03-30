@@ -1,15 +1,19 @@
-import './App.css';
-import Navigation from './components/Navigation';
-import Searchbar from './components/Searchbar';
-
+import React from "react";
+import Navbar from "./components/Navbar";
+import Searchbar from "./components/Searchbar";
+import styled from "styled-components";
 
 const App = (): JSX.Element => {
   return (
-    <div className="App">
-      <Navigation />
+    <AppStyle>
+      <Navbar />
       <Searchbar />
-    </div>
+    </AppStyle>
   );
-}
+};
+
+const AppStyle = styled.div`
+  
+`;
 
 export default App;
