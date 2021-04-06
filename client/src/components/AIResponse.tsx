@@ -10,7 +10,7 @@ const AIResponse = ({ tweetResponse }: AIResponseProps): JSX.Element => {
       <ResponseContainer>
         <h3>Tweet:</h3>
         <p>{tweetResponse?.tweet}</p>
-        <h3>AI Sentiment Response:</h3>
+        <h3>GPT-3 Sentiment Response:</h3>
         <p>{tweetResponse?.ai_response?.choices[0].text}</p>
       </ResponseContainer>
     </ResponseStyling>

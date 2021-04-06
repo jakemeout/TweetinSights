@@ -53,10 +53,7 @@ def create_app(env_name):
                 presence_penalty=0.0,
                 stop=["###"],
             )
-
             print(ai_response)
-
-            
             return jsonify({"tweet": tweet, "ai_response": ai_response})
 
     api.add_resource(Root, "/api/")
