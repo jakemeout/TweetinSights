@@ -11,11 +11,30 @@ const Searchbar: FC = () => {
   >(undefined);
 
   const onSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
+    sendTypeAhead(event.target.value);
     setInput(event.target.value);
   };
 
   const search = () => {
     sendSearchQuery();
+  };
+
+  const sendTypeAhead = async (text: string): Promise<void> => {
+    const config = {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        credentials: "same-origin",
+      },
+    };
+    const response = await fetch(
+      `https://twitter.com/i/search/typeahead.json?count=1000&filters=true&result_type=true&src=COMPOSE&q=${text}`,
+      config
+    );
+    const data = await response.json();
+    console.log(data);
   };
 
   const sendSearchQuery = async (): Promise<void> => {
