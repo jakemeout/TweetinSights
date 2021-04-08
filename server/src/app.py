@@ -39,8 +39,13 @@ def create_app(env_name):
                 f"https://api.twitter.com/2/tweets/search/recent?query=from:{username}",
                 headers=headers,
             ).json()
-            print(response)
+            print("response", response)
             tweet = response["data"][0]["text"]
+            tweet_id = response["data"][0][id]
+            tweet_details = requests.get(
+                f"https://api.twitter.com/2/tweets/{tweet_id}?tweet.fields=entities,geo,public_metrics,source,lang&media.fields=public_metrics",
+                headers=headers,
+            ).json()
             print(tweet)
             warmup_prompt = "This is a tweet sentiment classifier\n\n\nTweet: \"I loved the new Batman movie!\"\nSentiment: Positive\n###\nTweet: \"I hate it when my phone battery dies.\"\nSentiment: Negative\n###\nTweet: \"My day has been 👍\"\nSentiment: Positive\n###\nTweet: \"This is the link to the article\"\nSentiment: Neutral\n###\n"
             ai_response = openai.Completion.create(
@@ -54,7 +59,7 @@ def create_app(env_name):
                 stop=["###"],
             )
             print(ai_response)
-            return jsonify({"tweet": tweet, "ai_response": ai_response})
+            return jsonify({"tweet": tweet, "ai_response": ai_response, "tweet_details": tweet_details})
 
     api.add_resource(Root, "/api/")
     api.add_resource(Tweets, "/api/tweets")
