@@ -3,15 +3,32 @@ import AIResponse from "./AIResponse";
 import styled from "styled-components";
 import { TweetResponseState } from "../types/index";
 import TweetStats from "./TweetStats";
+import { gzip } from "node:zlib";
+
+// const headers: HeadersInit = {
+//   accept: "*/*",
+//   "Content-Type": "application/json",
+// };
+
+// const init: RequestInit = {
+//   headers,
+//   method: "GET",
+//   referrer: "http://localhost:3000/",
+//   referrerPolicy: "strict-origin-when-cross-origin",
+//   // body: null,
+//   mode: "no-cors",
+// };
+
 
 const Searchbar: FC = () => {
   const [input, setInput] = useState<string>("");
   const [tweetResponse, setTweetResponse] = useState<
     TweetResponseState | undefined
   >(undefined);
+  // const [typeAheadResponse, setTypeAheadResponse] = useState();
 
   const onSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
-    sendTypeAhead(event.target.value);
+    // sendTypeAhead(event.target.value);
     setInput(event.target.value);
   };
 
@@ -19,23 +36,15 @@ const Searchbar: FC = () => {
     sendSearchQuery();
   };
 
-  const sendTypeAhead = async (text: string): Promise<void> => {
-    const config = {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        credentials: "same-origin",
-      },
-    };
-    const response = await fetch(
-      `https://twitter.com/i/search/typeahead.json?count=1000&filters=true&result_type=true&src=COMPOSE&q=${text}`,
-      config
-    );
-    const data = await response.json();
-    console.log(data);
-  };
+  // const sendTypeAhead = async (text: string): Promise<void> => {
+  //   const response = await fetch(
+  //     `https://twitter.com/i/search/typeahead.json?count=100&filters=true&result_type=true&src=COMPOSE&q=${text}`,
+  //     init
+  //   );
+  //   console.log(response);
+  //   const typeAheadData = await response.json();
+  //   setTypeAheadResponse(typeAheadData);
+  // };
 
   const sendSearchQuery = async (): Promise<void> => {
     const config = {
@@ -66,6 +75,7 @@ const Searchbar: FC = () => {
       </InputContainerStyle>
       {!!tweetResponse && <AIResponse tweetResponse={tweetResponse} />}
       {!!tweetResponse && <TweetStats />}
+      {/* {console.log(typeAheadResponse)} */}
     </SearchbarMainStyle>
   );
 };
