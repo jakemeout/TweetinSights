@@ -41,7 +41,7 @@ def create_app(env_name):
             ).json()
             print("response", response)
             tweet = response["data"][0]["text"]
-            tweet_id = response["data"][0][id]
+            tweet_id = response["data"][0]["id"]
             tweet_details = requests.get(
                 f"https://api.twitter.com/2/tweets/{tweet_id}?tweet.fields=entities,geo,public_metrics,source,lang&media.fields=public_metrics",
                 headers=headers,

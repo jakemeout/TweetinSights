@@ -3,7 +3,7 @@ import AIResponse from "./AIResponse";
 import styled from "styled-components";
 import { TweetResponseState } from "../types/index";
 import TweetStats from "./TweetStats";
-import { gzip } from "node:zlib";
+
 
 // const headers: HeadersInit = {
 //   accept: "*/*",
@@ -57,6 +57,7 @@ const Searchbar: FC = () => {
     const response = await fetch("http://localhost:5000/api/tweets", config);
     const data = await response.json();
     setTweetResponse(data);
+    console.log(data)
   };
 
   return (
