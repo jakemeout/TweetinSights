@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { TweetResponseState } from "../types/index";
 import TweetStats from "./TweetStats";
 
-
 // const headers: HeadersInit = {
 //   accept: "*/*",
 //   "Content-Type": "application/json",
@@ -18,7 +17,6 @@ import TweetStats from "./TweetStats";
 //   // body: null,
 //   mode: "no-cors",
 // };
-
 
 const Searchbar: FC = () => {
   const [input, setInput] = useState<string>("");
@@ -57,7 +55,7 @@ const Searchbar: FC = () => {
     const response = await fetch("http://localhost:5000/api/tweets", config);
     const data = await response.json();
     setTweetResponse(data);
-    console.log(data)
+    console.log(data);
   };
 
   return (
