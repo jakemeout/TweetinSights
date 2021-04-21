@@ -40,6 +40,8 @@ def create_app(env_name):
                 headers=headers,
             ).json()
             print("response", response)
+            # if response["meta"]["results_count"] == 0:
+            #     tweet_details = {}
             tweet = response["data"][0]["text"]
             tweet_id = response["data"][0]["id"]
             tweet_details = requests.get(
@@ -47,6 +49,7 @@ def create_app(env_name):
                 headers=headers,
             ).json()
             print(tweet)
+            
             warmup_prompt = "This is a tweet sentiment classifier\n\n\nTweet: \"I loved the new Batman movie!\"\nSentiment: Positive\n###\nTweet: \"I hate it when my phone battery dies.\"\nSentiment: Negative\n###\nTweet: \"My day has been 👍\"\nSentiment: Positive\n###\nTweet: \"This is the link to the article\"\nSentiment: Neutral\n###\n"
             ai_response = openai.Completion.create(
                 engine="davinci",
