@@ -73,7 +73,7 @@ const Searchbar: FC = () => {
         <Button onClick={search}> Search</Button>
       </InputContainerStyle>
       {!!tweetResponse && <AIResponse tweetResponse={tweetResponse} />}
-      {!!tweetResponse && <TweetStats />}
+      <TweetStats />
       {/* {console.log(typeAheadResponse)} */}
     </SearchbarMainStyle>
   );
