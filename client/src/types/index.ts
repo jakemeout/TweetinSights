@@ -1,12 +1,19 @@
-export type TweetAIResponseState = {
-  tweet?: string;
-  ai_response?: {
-    choices: { text: string }[];
-  };
-};
+export interface Tweet {
+  text: string,
+  publicMetrcis: PublicMetric,
+  id: string,
+  created_at: string,
+}
 
-export type AIResponseProps = {
-  tweetAIResponse?: TweetAIResponseState;
-};
+export interface PublicMetric {
+  retweet_count: number,
+}
 
+export interface TweetsResponse {
+  tweets: Tweet[],
+}
 
+export interface AISays {
+  id: string,
+
+}
