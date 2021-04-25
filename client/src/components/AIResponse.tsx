@@ -1,16 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import { AIResponseProps } from "../types/index";
+import { TweetsResponse } from "../types/index";
 
-const AIResponse = ({ tweetAIResponse }: AIResponseProps): JSX.Element => {
+const AIResponse = ({ data }: { data: TweetsResponse }): JSX.Element => {
+  const { ai_response, tweets } = data || {};
   return (
     <ResponseStyling>
       <HeaderStyle>GPT-3 Davinci Tweet Sentiment Analysis</HeaderStyle>
       <ResponseContainer>
         <h3>Tweet:</h3>
-        <p>{tweetAIResponse?.tweet}</p>
+        <p>{tweets[0]?.text}</p>
         <h3>GPT-3 Sentiment Response:</h3>
-        <p>{tweetAIResponse?.ai_response?.choices[0].text}</p>
+        <p>{ai_response.choices[0].text}</p>
       </ResponseContainer>
     </ResponseStyling>
   );

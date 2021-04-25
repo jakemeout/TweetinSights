@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FC } from "react";
 import AIResponse from "./AIResponse";
 import styled from "styled-components";
-import { TweetAIResponseState } from "../types/index";
+import { TweetsResponse } from "../types/index";
 import TweetStats from "./TweetStats";
 
 // const headers: HeadersInit = {
@@ -21,7 +21,7 @@ import TweetStats from "./TweetStats";
 const Searchbar: FC = () => {
   const [input, setInput] = useState<string>("");
   const [tweetAIResponse, setTweetAIResponse] = useState<
-    TweetAIResponseState | undefined
+    TweetsResponse | undefined
   >(undefined);
   // const [typeAheadResponse, setTypeAheadResponse] = useState();
 
@@ -72,8 +72,8 @@ const Searchbar: FC = () => {
         />
         <Button onClick={search}> Search</Button>
       </InputContainerStyle>
-      {!!tweetAIResponse && <AIResponse tweetAIResponse={tweetAIResponse} />}
-      {/* {!!tweetResponse && <TweetStats />} */}
+      {!!tweetAIResponse && <AIResponse data={tweetAIResponse} />}
+      {!!tweetAIResponse && <TweetStats data={tweetAIResponse} />}
       {/* {console.log(typeAheadResponse)} */}
     </SearchbarMainStyle>
   );
