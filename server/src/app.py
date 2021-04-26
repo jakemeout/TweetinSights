@@ -53,6 +53,15 @@ def create_app(env_name):
             )
             return jsonify({"tweets": tweets, "ai_response": ai_response})
 
+    class TypeAhead(Resource):
+        def post(self):
+            search_criteria = request.json["search_criteria"]
+            url = f"https://twitter.com/i/search/typeahead.json?count=1000&filters=true&result_type=true&src=COMPOSE&q={search_criteria}"
+            response = requests.get(url).json()
+            typeahead_results = response.users
+            return jsonify({"typeahead": typeahead_results})
+
     api.add_resource(Root, "/api/")
     api.add_resource(Tweets, "/api/tweets")
+    api.add_resource(TypeAhead, "/api/typeahead")
     return app

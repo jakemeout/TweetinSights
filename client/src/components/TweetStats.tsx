@@ -7,8 +7,8 @@ import { ResponsiveBar } from "@nivo/bar";
 const TweetStats = ({ data }: { data: TweetsResponse }): JSX.Element => {
   const { tweets } = data || {};
   const tweetMetrics = tweets.map((d, idx) => {
-    const date = new Date(d.created_at);
-    const formattedDate = date.toLocaleDateString();
+    // const date = new Date(d.created_at);
+    // const formattedDate = date.toLocaleDateString();
     return {
       tweet_index: `tweet ${idx}`,
       id: d.id,
