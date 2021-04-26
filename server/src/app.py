@@ -58,8 +58,8 @@ def create_app(env_name):
             search_criteria = request.json["search_criteria"]
             url = f"https://twitter.com/i/search/typeahead.json?count=1000&filters=true&result_type=true&src=COMPOSE&q={search_criteria}"
             response = requests.get(url).json()
-            typeahead_results = response.users
-            return jsonify({"typeahead": typeahead_results})
+            typeahead_results = response["users"]
+            return jsonify({"typeahead_results": typeahead_results})
 
     api.add_resource(Root, "/api/")
     api.add_resource(Tweets, "/api/tweets")
