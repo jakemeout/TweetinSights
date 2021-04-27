@@ -31,6 +31,29 @@ export interface Choices {
   finish_reason: string;
 }
 
-// export interface TypeAheadResponse {
+export interface TypeAheadResponse {
+  typeahead_results: TypeAheadResults[];
+}
 
-// }
+export interface TypeAheadResults {
+  connecting_user_count: number;
+  connecting_user_ids: number[];
+  id: number;
+  id_str: string;
+  inline: boolean;
+  is_blocked: boolean;
+  is_dm_able: boolean;
+  is_protected: boolean;
+  location: string;
+  name: string;
+  profile_image_url: string;
+  profile_image_url_https: string;
+  rounded_score: number;
+  screen_name: string;
+  social_proof: number;
+  social_proofs_ordered: number[];
+  length: number;
+  __proto__: number[];
+  tokens: number[];
+  verified: boolean;
+}

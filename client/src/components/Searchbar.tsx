@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent, FC } from "react";
 import AIResponse from "./AIResponse";
 import styled from "styled-components";
 import { TweetsResponse } from "../types/index";
-// import { TypeAheadResponse } from "../types/index";
+import { TypeAheadResults } from "../types/index";
 import TweetStats from "./TweetStats";
 import MagnifyingGlass from "../assets/images/MagnifyingGlass.svg";
 
@@ -11,7 +11,9 @@ const Searchbar: FC = () => {
   const [tweetAIResponse, setTweetAIResponse] = useState<
     TweetsResponse | undefined
   >(undefined);
-  const [typeAheadData, setTypeAheadResponse] = useState([]);
+  const [typeAheadData, setTypeAheadResponse] = useState<TypeAheadResults[]>(
+    []
+  );
 
   const onSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
     sendTypeAhead(event.target.value);
@@ -34,7 +36,7 @@ const Searchbar: FC = () => {
 
     const data = await response.json();
     console.log(data);
-    setTypeAheadResponse(data);
+    setTypeAheadResponse(data?.typeahead_results);
   };
 
   const sendSearchQuery = async (): Promise<void> => {
@@ -53,16 +55,20 @@ const Searchbar: FC = () => {
 
   const suggestionSelected = (value: string) => {
     setInput(value);
+    search();
   };
 
   const renderSuggestions = () => {
-    if (typeAheadData.length === 0) return null;
     console.log(typeAheadData);
+    if (typeAheadData.length === 0) return null;
     return (
       <ul>
-        {typeAheadData?.map((username) => (
-          <li key={username} onClick={(e) => suggestionSelected(username)}>
-            {username}
+        {typeAheadData.map((typeaheadObj, idx) => (
+          <li
+            key={idx}
+            onClick={(e) => suggestionSelected(typeaheadObj?.screen_name)}
+          >
+            {typeaheadObj?.screen_name}
           </li>
         ))}
       </ul>
@@ -86,7 +92,9 @@ const Searchbar: FC = () => {
           }}
         />
       </InputContainerStyle>
-      {renderSuggestions()}
+      {typeAheadData.length !== 0 && (
+        <TypeAheadDropDownStyle>{renderSuggestions()}</TypeAheadDropDownStyle>
+      )}
       {!!tweetAIResponse && <AIResponse data={tweetAIResponse} />}
       {!!tweetAIResponse && <TweetStats data={tweetAIResponse} />}
       {/* {console.log(typeAheadResponse)} */}
@@ -110,7 +118,7 @@ const InputContainerStyle = styled.div`
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
   border: 0.5px solid;
   border-radius: 100px;
-  width: 200px;
+  width: 250px;
 `;
 const Input = styled.input`
   padding-left: 20px;
@@ -119,5 +127,28 @@ const Input = styled.input`
 `;
 const MagGlass = styled.img`
   height: 20px;
+`;
+const TypeAheadDropDownStyle = styled.div`
+  border: 0.5px solid;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+  width: 225px;
+  ul {
+    list-style-type: none;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid gray;
+
+  }
+
+  li {
+    padding: 10px 5px;
+    cursor: pointer;
+  }
+
+  li:hover {
+    background: lightgray;
+    text-decoration: underline;
+  }
 `;
 export default Searchbar;
