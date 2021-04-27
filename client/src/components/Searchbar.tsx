@@ -54,6 +54,7 @@ const Searchbar: FC = () => {
   };
 
   const suggestionSelected = (value: string) => {
+    console.log("suggested value", value)
     setInput(value);
     search();
   };
@@ -77,7 +78,7 @@ const Searchbar: FC = () => {
 
   return (
     <SearchbarMainStyle>
-      <label>Search most recent Tweet by handle</label>
+      <label>Search a user's most recent Tweet and Tweet stats by Twitter handle</label>
       <br />
       <InputContainerStyle>
         <MagGlass src={MagnifyingGlass} alt="Search Input" />
@@ -97,7 +98,6 @@ const Searchbar: FC = () => {
       )}
       {!!tweetAIResponse && <AIResponse data={tweetAIResponse} />}
       {!!tweetAIResponse && <TweetStats data={tweetAIResponse} />}
-      {/* {console.log(typeAheadResponse)} */}
     </SearchbarMainStyle>
   );
 };
@@ -118,7 +118,7 @@ const InputContainerStyle = styled.div`
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
   border: 0.5px solid;
   border-radius: 100px;
-  width: 250px;
+  width: 200px;
 `;
 const Input = styled.input`
   padding-left: 20px;
@@ -131,14 +131,13 @@ const MagGlass = styled.img`
 const TypeAheadDropDownStyle = styled.div`
   border: 0.5px solid;
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
-  width: 225px;
+  width: 200px;
   ul {
     list-style-type: none;
     text-align: left;
     margin: 0;
     padding: 0;
     border-top: 1px solid gray;
-
   }
 
   li {
