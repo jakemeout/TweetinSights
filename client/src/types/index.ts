@@ -30,3 +30,7 @@ export interface Choices {
   logprobs: number | null | undefined;
   finish_reason: string;
 }
+
+// export interface TypeAheadResponse {
+
+// }

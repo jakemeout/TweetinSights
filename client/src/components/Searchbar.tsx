@@ -2,27 +2,16 @@ import React, { useState, ChangeEvent, FC } from "react";
 import AIResponse from "./AIResponse";
 import styled from "styled-components";
 import { TweetsResponse } from "../types/index";
+// import { TypeAheadResponse } from "../types/index";
 import TweetStats from "./TweetStats";
 import MagnifyingGlass from "../assets/images/MagnifyingGlass.svg";
-
-const headers: HeadersInit = {
-  accept: "*/*",
-  "Content-Type": "application/json",
-};
-
-const init: RequestInit = {
-  headers,
-  method: "GET",
-  // body: null,
-  mode: "no-cors",
-};
 
 const Searchbar: FC = () => {
   const [input, setInput] = useState<string>("");
   const [tweetAIResponse, setTweetAIResponse] = useState<
     TweetsResponse | undefined
   >(undefined);
-  const [typeAheadResponse, setTypeAheadResponse] = useState();
+  const [typeAheadData, setTypeAheadResponse] = useState([]);
 
   const onSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
     sendTypeAhead(event.target.value);
@@ -43,9 +32,9 @@ const Searchbar: FC = () => {
     };
     const response = await fetch("http://localhost:5000/api/typeahead", config);
 
-    const typeAheadData = await response.json();
-    console.log(typeAheadData);
-    setTypeAheadResponse(typeAheadData);
+    const data = await response.json();
+    console.log(data);
+    setTypeAheadResponse(data);
   };
 
   const sendSearchQuery = async (): Promise<void> => {
@@ -60,6 +49,24 @@ const Searchbar: FC = () => {
     const data = await response.json();
     setTweetAIResponse(data);
     console.log(data);
+  };
+
+  const suggestionSelected = (value: string) => {
+    setInput(value);
+  };
+
+  const renderSuggestions = () => {
+    if (typeAheadData.length === 0) return null;
+    console.log(typeAheadData);
+    return (
+      <ul>
+        {typeAheadData?.map((username) => (
+          <li key={username} onClick={(e) => suggestionSelected(username)}>
+            {username}
+          </li>
+        ))}
+      </ul>
+    );
   };
 
   return (
@@ -79,6 +86,7 @@ const Searchbar: FC = () => {
           }}
         />
       </InputContainerStyle>
+      {renderSuggestions()}
       {!!tweetAIResponse && <AIResponse data={tweetAIResponse} />}
       {!!tweetAIResponse && <TweetStats data={tweetAIResponse} />}
       {/* {console.log(typeAheadResponse)} */}
