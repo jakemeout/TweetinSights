@@ -34,6 +34,7 @@ def create_app(env_name):
     class Tweets(Resource):
         def post(self):
             username = request.json["username"]
+            print(username)
             response = requests.get(
                 f"https://api.twitter.com/2/tweets/search/recent?query=from:{username}&tweet.fields=created_at,public_metrics",
                 headers=headers,

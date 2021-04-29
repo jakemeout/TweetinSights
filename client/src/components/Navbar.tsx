@@ -6,21 +6,26 @@ const Navbar = () => {
   return (
     <NavStyle>
       <TwitterLogo src={TwitterIcon} alt="Twitter logo" />
-      <h1>TweetInsights AI</h1>
+      <h1>Tweet Insights AI</h1>
     </NavStyle>
   );
 };
 
 const NavStyle = styled.div`
+  border-bottom: 1px solid grey;
   display: flex;
-  justify-content: center;
   flex-direction: row;
-  border-bottom: 2px solid grey;
+  justify-content: space-between;
+  flex-wrap: warp;
+  h1 {
+    
+  }
 `;
 
 const TwitterLogo = styled.img`
   height: 50px;
   width: 50px;
+  align-self: flex-end;
 `;
 
 export default Navbar;

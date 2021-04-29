@@ -54,14 +54,15 @@ const Searchbar: FC = () => {
   };
 
   const suggestionSelected = (value: string) => {
-    console.log("suggested value", value)
+    console.log("suggested value", value);
     setInput(value);
     search();
+    setTypeAheadResponse([])
   };
 
   const renderSuggestions = () => {
     console.log(typeAheadData);
-    if (typeAheadData.length === 0) return null;
+    if (typeAheadData.length === 0 || typeAheadData === []) return null;
     return (
       <ul>
         {typeAheadData.map((typeaheadObj, idx) => (
@@ -78,7 +79,9 @@ const Searchbar: FC = () => {
 
   return (
     <SearchbarMainStyle>
-      <label>Search a user's most recent Tweet and Tweet stats by Twitter handle</label>
+      <label>
+        Search a user's most recent Tweet and Tweet stats by Twitter handle
+      </label>
       <br />
       <InputContainerStyle>
         <MagGlass src={MagnifyingGlass} alt="Search Input" />
