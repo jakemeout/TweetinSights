@@ -15,13 +15,13 @@ const Searchbar: FC = () => {
     []
   );
 
-  const onSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
-    sendTypeAhead(event.target.value);
+  const onTextChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);
+    sendTypeAhead(event.target.value);
   };
 
-  const search = () => {
-    sendSearchQuery();
+  const search = (value: string) => {
+    sendSearchQuery(value);
   };
 
   const sendTypeAhead = async (text: string): Promise<void> => {
@@ -39,29 +39,28 @@ const Searchbar: FC = () => {
     setTypeAheadResponse(data?.typeahead_results);
   };
 
-  const sendSearchQuery = async (): Promise<void> => {
+  const sendSearchQuery = async (value: string): Promise<void> => {
     const config = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username: input }),
+      body: JSON.stringify({ username: value }),
     };
     const response = await fetch("http://localhost:5000/api/tweets", config);
     const data = await response.json();
-    // if(data.message){
-
-    // }
-    setTweetAIResponse(data);
-    console.log(data);
+    if (data.message) {
+      alert(data.message);
+    } else {
+      setTweetAIResponse(data);
+      console.log(data);
+    }
   };
 
   const suggestionSelected = (value: string) => {
     console.log("suggested value", value);
-    setInput(value);
-    console.log(input)
-    search();
-    setTypeAheadResponse([])
+    search(value);
+    setTypeAheadResponse([]);
   };
 
   const renderSuggestions = () => {
@@ -90,13 +89,13 @@ const Searchbar: FC = () => {
       <InputContainerStyle>
         <MagGlass src={MagnifyingGlass} alt="Search Input" />
         <Input
-          onChange={onSearchInput}
+          onChange={onTextChange}
           value={input}
           placeholder="Search Twitter"
           name="search"
           type="text"
           onKeyPress={(e) => {
-            if (e.key === "Enter") return search();
+            if (e.key === "Enter") return search(input);
           }}
         />
       </InputContainerStyle>
