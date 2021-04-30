@@ -6,6 +6,7 @@ import { TypeAheadResults } from "../types/index";
 import TweetStats from "./TweetStats";
 import MagnifyingGlass from "../assets/images/MagnifyingGlass.svg";
 
+
 const Searchbar: FC = () => {
   const [input, setInput] = useState<string>("");
   const [tweetAIResponse, setTweetAIResponse] = useState<
