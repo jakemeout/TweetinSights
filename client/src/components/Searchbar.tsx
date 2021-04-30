@@ -49,6 +49,9 @@ const Searchbar: FC = () => {
     };
     const response = await fetch("http://localhost:5000/api/tweets", config);
     const data = await response.json();
+    // if(data.message){
+
+    // }
     setTweetAIResponse(data);
     console.log(data);
   };
@@ -56,6 +59,7 @@ const Searchbar: FC = () => {
   const suggestionSelected = (value: string) => {
     console.log("suggested value", value);
     setInput(value);
+    console.log(input)
     search();
     setTypeAheadResponse([])
   };

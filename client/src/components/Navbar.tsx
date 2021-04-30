@@ -29,3 +29,4 @@ const TwitterLogo = styled.img`
 `;
 
 export default Navbar;
+

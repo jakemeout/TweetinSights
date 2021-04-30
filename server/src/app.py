@@ -39,6 +39,9 @@ def create_app(env_name):
                 f"https://api.twitter.com/2/tweets/search/recent?query=from:{username}&tweet.fields=created_at,public_metrics",
                 headers=headers,
             ).json()
+            # print(requests.HTTPError)
+            if(response["meta"]["result_count"] == 0):
+                return jsonify({"message": "User does not have any Tweets within the last 7 days"})
             tweets = response["data"]
             most_recent_tweet = response["data"][0]["text"]
             warmup_prompt = "This is a tweet sentiment classifier\n\n\nTweet: \"I loved the new Batman movie!\"\nSentiment: Positive\n###\nTweet: \"I hate it when my phone battery dies.\"\nSentiment: Negative\n###\nTweet: \"My day has been 👍\"\nSentiment: Positive\n###\nTweet: \"This is the link to the article\"\nSentiment: Neutral\n###\n"
