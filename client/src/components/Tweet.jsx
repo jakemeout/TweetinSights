@@ -1,18 +1,6 @@
 // import React from "react";
 // import styled from "styled-components";
 // import { TweetsResponse } from "../types/index";
-// import {
-//   TwitterTimelineEmbed,
-//   TwitterShareButton,
-//   TwitterFollowButton,
-//   TwitterHashtagButton,
-//   TwitterMentionButton,
-//   TwitterTweetEmbed,
-//   TwitterMomentShare,
-//   TwitterDMButton,
-//   TwitterVideoEmbed,
-//   TwitterOnAirButton,
-// } from "react-twitter-embed";
 
 // const Tweet = ({ Tweet }: { data: TweetsResponse }): JSX.Element => {
 //   return (
