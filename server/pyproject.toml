@@ -7,6 +7,12 @@ authors = ["jakemeout <jacobosity@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.9"
 fastapi = {extras = ["all"], version = "^0.70.0"}
+SQLAlchemy = "^1.4.25"
+alembic = "^1.7.4"
+FastAPI-SQLAlchemy = "^0.2.1"
+uvicorn = "^0.15.0"
+psycopg2 = "^2.9.1"
+pydantic = "^1.8.2"
 
 [tool.poetry.dev-dependencies]
 
